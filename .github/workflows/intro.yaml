@@ -9,19 +9,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: oven-sh/setup-bun@v1
+      - name: Install Node.js
+        uses: actions/setup-node@v3
         with:
-          bun-version: latest
+          node-version: 16
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: latest
 
       - name: Install dependencies
-        run: bun install
+        run: pnpm install
 
       - name: Build
-        run: bun run build
+        run: pnpm run build
 
       - name: Run the server
         run: |
-          bun run preview & 
+          pnpm run preview & 
           sleep 5
 
       - name: Curl the server
